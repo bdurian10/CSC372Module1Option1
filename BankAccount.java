@@ -24,14 +24,30 @@ public class BankAccount {
 		this.balance = balance;
 	}
 	
-	//Method to deposit money into an account
-	public double deposit(double deposit) {
+	//Method to deposit money into an account. Throws exception if a negative number is deposited.
+	public double deposit(double deposit){
 		
-		balance += deposit;
-		return balance;
+		try {
+			if(deposit < 0) {
+				
+				throw new Exception("Deposit Must Be a Positive Number");
+			}
+			
+			balance += deposit;
+			return balance;
+			
+		}
+		
+		catch(Exception e) {
+			
+			System.out.println(e.getMessage());
+			return balance;
+			
+		}
 		
 	}
 	
+	//Method to withdrawal money. Does not allow withdrawals greater than the current balance
 	public double withdrawal(double withdrawal) {
 		
 		balance -= withdrawal;
@@ -86,7 +102,7 @@ public class BankAccount {
 		
 		System.out.println(lastName + ", " + firstName);
 		System.out.println("Account ID: " + accountID);
-		System.out.printf("Balance: %f.2\n", balance);
+		System.out.printf("Balance: %.2f \n", this.getBalance());
 		
 	}
 
