@@ -18,6 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 public class BankBalanceFrame extends JFrame implements ActionListener {
+	/**
+	 * I don't know what this 
+	 */
+	private static final long serialVersionUID = -9018377602139359277L;
 	//Label for account number
 	private JLabel accountNumLabel = new JLabel("Enter Account Number:");
 	//Displays account number
