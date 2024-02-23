@@ -152,12 +152,10 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		String userAccountNum; //User specified account number
-		int accountNumber;
-		double balance = account1.getBalance();
-		String userDepositInput;
-		double deposit;
-		String userWithdrawalInput;
-		double withdrawal;
+		int accountNumber; //Used for casting the userAccountNum string to double
+		double balance = account1.getBalance(); //Stores the balance of the test bank account
+		double deposit; //User specified deposit
+		double withdrawal; //User specified withdrawal
 		
 		//Actions if loginButton pressed
 		if(event.getSource() == loginButton) {
@@ -169,11 +167,16 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 			
 			//Determine if account number matches test account
 			if(accountNumber == account1.getAccountID()) {
+				//Update balanceField with the value of balance
 				balance = account1.getBalance();
 				balanceField.setValue(balance);
+				
+				//Hide the login screen and show the account screen
 				loginPanel.setVisible(false);
 				add(accountPanel);
 			}
+			
+			//Inform user of bad login
 			else {
 				JOptionPane.showMessageDialog(null, "Login Failed. Please Try Again", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -187,15 +190,13 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 			//get user input from deposit field
 			deposit = ((Number) depositField.getValue()).doubleValue();
 			
+			//Truncate deposit to two decimal places
+			deposit = Double.parseDouble(String.format("%.2f", deposit));
 			//Check for negative numbers
 			if(deposit < 0) {
 				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			
-			else if(deposit % .01 != 0){
-				JOptionPane.showMessageDialog(null, "Please Enter Only Two Decimal Places", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			
+
 			else {
 				//Use BankAccounts deposit method to process deposit
 				account1.deposit(deposit);
@@ -214,13 +215,11 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 			//get user input from deposit field
 			withdrawal = ((Number) withdrawalField.getValue()).doubleValue();
 			
+			//Truncate withdrawal to two decimal places
+			withdrawal = Double.parseDouble(String.format("%.2f", withdrawal));
 			//Check for negative numbers
 			if(withdrawal < 0) {
 				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			
-			else if(withdrawal % .01 != 0){
-				JOptionPane.showMessageDialog(null, "Please Enter Only Two Decimal Places", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			else {
