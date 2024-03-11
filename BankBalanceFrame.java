@@ -33,17 +33,21 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 	//Label for balance
 	private JLabel balanceLabel = new JLabel("Balance: $");
 	//Displays balance
-	private JFormattedTextField balanceField = new JFormattedTextField(NumberFormat.getNumberInstance());
+	private JFormattedTextField balanceField = new 
+			JFormattedTextField(NumberFormat.getNumberInstance());
 	//Label for deposit 
-	private JLabel depositLabel = new JLabel("Enter Amount to Deposit: $");
+	private JLabel depositLabel = new 
+			JLabel("Enter Amount to Deposit: $");
 	//Displays deposit field
-	private JFormattedTextField depositField = new JFormattedTextField(NumberFormat.getNumberInstance());
+	private JFormattedTextField depositField = new 
+			JFormattedTextField(NumberFormat.getNumberInstance());
 	//Trigger deposit
 	private JButton depositButton = new JButton("Process Deposit");
 	//Label for Withdrawal
 	private JLabel withdrawalLabel = new JLabel("Enter Amout to Withdraw: $");
 	//Displays withdrawal field
-	private JFormattedTextField withdrawalField = new JFormattedTextField(NumberFormat.getNumberInstance());
+	private JFormattedTextField withdrawalField = new 
+			JFormattedTextField(NumberFormat.getNumberInstance());
 	//Trigger withdrawal
 	private JButton withdrawButton = new JButton("Process Withdrawal");
 	//Triggers login
@@ -164,32 +168,40 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 		//Actions if loginButton pressed
 		if(event.getSource() == loginButton) {
 			//Get user's account number input
-			userAccountNum = accountNumField.getText();
+			try {
+				userAccountNum = accountNumField.getText();
 			
-			//Convert from String to an integer
-			accountNumber = Integer.parseInt(userAccountNum);
-			
-			//Determine if account number matches test account
-			if(accountNumber == account1.getAccountID()) {
-				//Update balanceField with the value of balance
-				balance = account1.getBalance();
-				balanceField.setValue(balance);
+				//Convert from String to an integer
+				accountNumber = Integer.parseInt(userAccountNum);
 				
-				//Hide the login screen and show the account screen
-				loginPanel.setVisible(false);
-				add(accountPanel);
+				//Determine if account number matches test account
+				if(accountNumber == account1.getAccountID()) {
+					//Update balanceField with the value of balance
+					balance = account1.getBalance();
+					balanceField.setValue(balance);
+					
+					//Hide the login screen and show the account screen
+					loginPanel.setVisible(false);
+					add(accountPanel);
+				}
+				
+				//Inform user of bad login
+				else {
+					JOptionPane.showMessageDialog(null, "Login Failed. Please Try Again", 
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			
-			//Inform user of bad login
-			else {
-				JOptionPane.showMessageDialog(null, "Login Failed. Please Try Again", "Error", JOptionPane.ERROR_MESSAGE);
+			catch(NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Login Failed. Please Try Again.", 
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
 		//Actions if deposit button pressed
 		if(event.getSource() == depositButton) {
 			if(depositField.getValue() == null) {
-				JOptionPane.showMessageDialog(null, "Null Value", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Null Value", "Error", 
+						JOptionPane.ERROR_MESSAGE);
 			}
 			//get user input from deposit field
 			deposit = ((Number) depositField.getValue()).doubleValue();
@@ -198,7 +210,8 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 			deposit = Double.parseDouble(String.format("%.2f", deposit));
 			//Check for negative numbers
 			if(deposit < 0) {
-				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", 
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 			else {
@@ -214,7 +227,8 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 		//Actions if withdraw button pressed
 		if(event.getSource() == withdrawButton) {
 			if(withdrawalField.getValue() == null) {
-				JOptionPane.showMessageDialog(null, "Null Value", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Null Value", 
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 			//get user input from deposit field
 			withdrawal = ((Number) withdrawalField.getValue()).doubleValue();
@@ -223,7 +237,8 @@ public class BankBalanceFrame extends JFrame implements ActionListener {
 			withdrawal = Double.parseDouble(String.format("%.2f", withdrawal));
 			//Check for negative numbers
 			if(withdrawal < 0) {
-				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Please Enter a Positive Number", 
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 			else {
